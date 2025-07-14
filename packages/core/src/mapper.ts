@@ -1,5 +1,6 @@
 import type { ParsedPanel, PrometheusChartConfig, GrafanaRendererOptions } from './types';
 import { CHART_TYPE_MAPPING } from './constants';
+import {ChartTypeRegistry} from "chart.js"
 
 /**
  * Chart.js Configuration Mapper
@@ -13,7 +14,7 @@ export class ChartConfigMapper {
     panel: ParsedPanel,
     options: GrafanaRendererOptions
   ): PrometheusChartConfig {
-    const chartType = this.getChartType(panel.type);
+    const chartType = this.getChartType(panel.type) as keyof ChartTypeRegistry;
     
     // Mock implementation - basic Chart.js config with Prometheus plugin
     const config: PrometheusChartConfig = {
