@@ -17,13 +17,14 @@
     "lint": "eslint src --ext .ts,.svelte",
     "clean": "rm -rf dist"
   },
+  "workspaces": ["packages/*"],
   "dependencies": {
-    "@grafana-renderer/core": "workspace:*"
+    "@grafana-renderer/core": "0.0.1"
   },
   "peerDependencies": {
     "svelte": "^4.0.0 || ^5.0.0",
     "chart.js": "^4.0.0",
-    "chartjs-plugin-datasource-prometheus": "^1.0.0",
+    "chartjs-plugin-datasource-prometheus": "^2.3.2",
     "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^3.0.0"
   },

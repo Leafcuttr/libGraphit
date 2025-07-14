@@ -1,6 +1,6 @@
 {
   "name": "@grafana-renderer/core",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Core framework-agnostic library for rendering Grafana panels with Chart.js",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "chart.js": "^4.0.0",
-    "chartjs-plugin-datasource-prometheus": "^1.0.0",
+    "chartjs-plugin-datasource-prometheus": "^2.3.2",
     "chartjs-adapter-date-fns": "^3.0.0",
     "date-fns": "^3.0.0"
   },
