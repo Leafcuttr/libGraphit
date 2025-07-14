@@ -1,0 +1,45 @@
+{
+  "name": "@grafana-renderer/svelte",
+  "version": "0.1.0",
+  "description": "Svelte adapter for Grafana Chart.js Renderer",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "svelte": "src/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "svelte-package && tsc",
+    "dev": "svelte-package --watch",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts,.svelte",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@grafana-renderer/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "svelte": "^4.0.0 || ^5.0.0",
+    "chart.js": "^4.0.0",
+    "chartjs-plugin-datasource-prometheus": "^1.0.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^3.0.0"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "^2.0.0",
+    "svelte": "^4.0.0",
+    "vitest": "^1.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "vite": "^5.0.0"
+  },
+  "keywords": [
+    "svelte",
+    "grafana",
+    "chart.js",
+    "prometheus",
+    "component"
+  ],
+  "license": "MIT"
+}

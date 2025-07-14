@@ -1,0 +1,39 @@
+{
+  "name": "@grafana-renderer/core",
+  "version": "0.1.0",
+  "description": "Core framework-agnostic library for rendering Grafana panels with Chart.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "chart.js": "^4.0.0",
+    "chartjs-plugin-datasource-prometheus": "^1.0.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "jest": "^29.0.0",
+    "rollup": "^4.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "ts-jest": "^29.0.0"
+  },
+  "keywords": [
+    "grafana",
+    "chart.js",
+    "prometheus",
+    "core",
+    "framework-agnostic"
+  ],
+  "license": "MIT"
+}
