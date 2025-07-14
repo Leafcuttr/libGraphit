@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { GrafanaRenderer, type GrafanaPanel, type RendererResult } from '@grafana-renderer/core';
+  import type { GrafanaPanel, RendererResult } from '@grafana-renderer/core';
+  import { GrafanaRenderer } from '@grafana-renderer/core';
   import type { GrafanaPanelProps } from './types';
 
   // Component props
