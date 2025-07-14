@@ -4,8 +4,8 @@ This guide helps you set up the development environment for libGraphit.
 
 ## Prerequisites
 
-- Node.js 18+ 
-- npm 8+
+- Node.js 20+ 
+- npm 10+
 
 ## Setup
 
