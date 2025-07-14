@@ -1,5 +1,6 @@
 {
   "name": "@grafana-renderer/core",
+  "type": "module",
   "version": "0.0.1",
   "description": "Core framework-agnostic library for rendering Grafana panels with Chart.js",
   "main": "dist/index.js",
