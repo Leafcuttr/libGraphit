@@ -122,7 +122,7 @@
     <p>Here's how to implement a multi-panel dashboard:</p>
     
     <div class="code">
-{`<script>
+{<script lang="ts">
   import { GrafanaPanel } from '@grafana-renderer/svelte';
   import { writable } from 'svelte/store';
 
