@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@grafana-renderer/core": "file:../../packages/core",
-    "@grafana-renderer/svelte": "file:../../packages/svelte",
     "chart.js": "^4.5.0",
     "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-plugin-datasource-prometheus": "^2.3.2",

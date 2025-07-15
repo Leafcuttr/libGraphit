@@ -28,7 +28,7 @@ function createThemeStore() {
 export const theme = createThemeStore();
 
 // Prometheus URL store
-export const prometheusUrl = writable('http://localhost:9090');
+export const prometheusUrl = writable('/mock-prometheus');
 
 // Time range store
 export const timeRange = writable({
