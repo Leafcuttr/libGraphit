@@ -43,8 +43,8 @@ export interface GrafanaDashboard {
 export interface GrafanaRendererOptions {
   prometheusUrl: string;
   timeRange?: {
-    from: string;
-    to: string;
+    start: number;
+    end: number;
   };
   theme?: 'light' | 'dark';
   refreshInterval?: number;
@@ -59,8 +59,8 @@ export interface PrometheusChartConfig extends ChartConfiguration {
         query: string;
         timeRange?: {
           type: string;
-          start: string;
-          end: string;
+          start: number;
+          end: number;
         };
       };
     };

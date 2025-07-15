@@ -64,6 +64,7 @@
       <GrafanaPanel 
         panelJson={cpuUsagePanel} 
         prometheusUrl={$prometheusUrl}
+        timeRange={{ type: 'relative', start: -12 * 60 * 60 * 1000, end: 0 }}
         width="100%"
         height="400px"
       />

@@ -37,6 +37,16 @@
     ]
   };
 
+  async function getData(url: string): Promise<any> {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data from ${url}`);
+    }
+    const result = response.json();
+    console.log('Mock: Fetched data from', url, result);
+    return result;
+  }
+
   onMount(async () => {
     try {
       loading = true;
@@ -52,11 +62,14 @@
       
       // Create renderer options
       const options = {
-        prometheusUrl: prometheusUrlToUse,
+        prometheusUrl: await getData(prometheusUrlToUse),
         timeRange,
         theme,
         refreshInterval,
       };
+
+      console.log("options:", options);
+      console.log("panelToRender:", panelToRender);
 
       // Initialize the renderer
       rendererResult = await GrafanaRenderer.renderPanel(
@@ -105,13 +118,12 @@
       <p>{error}</p>
       <small>Check your panel JSON and Prometheus URL</small>
     </div>
-  {:else}
-    <canvas
-      bind:this={canvasElement}
-      class="chart-canvas"
-      style="width: 100%; height: 100%;"
-    ></canvas>
   {/if}
+  <canvas
+    bind:this={canvasElement}
+    class="chart-canvas"
+    style="width: 100%; height: 100%;"
+  ></canvas>
 </div>
 
 <style>

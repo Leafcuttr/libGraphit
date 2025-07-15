@@ -10,6 +10,8 @@ import { GrafanaJsonParser } from './parser';
 import { ChartConfigMapper } from './mapper';
 import { DEFAULT_RENDERER_OPTIONS, ERROR_MESSAGES } from './constants';
 
+import 'chartjs-adapter-date-fns';
+
 // Register Chart.js components
 Chart.register(...registerables);
 

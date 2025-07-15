@@ -1,6 +1,7 @@
 import type { ParsedPanel, PrometheusChartConfig, GrafanaRendererOptions } from './types';
 import { CHART_TYPE_MAPPING } from './constants';
 import type {ChartTypeRegistry} from "chart.js"
+import ChartDatasourcePrometheusPlugin from 'chartjs-plugin-datasource-prometheus';
 
 /**
  * Chart.js Configuration Mapper
@@ -22,6 +23,7 @@ export class ChartConfigMapper {
       data: {
         datasets: [], // Will be populated by the Prometheus plugin
       },
+      plugins: [ChartDatasourcePrometheusPlugin],
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -40,8 +42,8 @@ export class ChartConfigMapper {
             query: panel.queries[0]?.expr || '', // Use first query for now
             timeRange: {
               type: 'relative',
-              start: options.timeRange?.from || 'now-1h',
-              end: options.timeRange?.to || 'now',
+              start: options.timeRange?.start ?? 1*60*60,
+              end: options.timeRange?.end ?? 0,
             },
           },
         },
