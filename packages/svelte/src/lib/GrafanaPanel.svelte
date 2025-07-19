@@ -62,7 +62,7 @@
       
       // Create renderer options
       const options = {
-        prometheusUrl: await getData(prometheusUrlToUse),
+        prometheusUrl: prometheusUrlToUse,
         timeRange,
         theme,
         refreshInterval,

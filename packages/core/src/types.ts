@@ -55,12 +55,16 @@ export interface PrometheusChartConfig extends ChartConfiguration {
   options: ChartConfiguration['options'] & {
     plugins?: {
       'datasource-prometheus'?: {
-        url: string;
-        query: string;
+        // Add required properties
+        prometheus: {
+          endpoint: string;  // The Prometheus server URL
+          baseURL: string; // Base URL for the Prometheus API
+        }
+        query: string;     // The PromQL query
         timeRange?: {
-          type: string;
-          start: number;
-          end: number;
+          type: 'relative' | 'absolute';
+          start: number // string;
+          end: number // string;
         };
       };
     };

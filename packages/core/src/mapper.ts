@@ -38,7 +38,10 @@ export class ChartConfigMapper {
           },
           // Prometheus datasource plugin configuration
           'datasource-prometheus': {
-            url: options.prometheusUrl,
+            prometheus: {
+              endpoint: options.prometheusUrl,
+              baseURL: "/"
+            },
             query: panel.queries[0]?.expr || '', // Use first query for now
             timeRange: {
               type: 'relative',
