@@ -122,24 +122,23 @@
     <p>Here's how to implement a multi-panel dashboard:</p>
     
     <div class="code">
-{<script lang="ts">
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
-  import { writable } from 'svelte/store';
+{`// Store configuration
+import { GrafanaPanel } from '@grafana-renderer/svelte';
+import { writable } from 'svelte/store';
 
-  // Shared configuration stores
-  const prometheusUrl = writable('http://localhost:9090');
-  const timeRange = writable({ from: 'now-1h', to: 'now' });
-  const theme = writable('light');
-  const refreshInterval = writable(30);
+// Shared configuration stores
+const prometheusUrl = writable('http://localhost:9090');
+const timeRange = writable({ from: 'now-1h', to: 'now' });
+const theme = writable('light');
+const refreshInterval = writable(30);
 
-  // Array of panel configurations
-  const panels = [
-    { id: 1, title: 'CPU Usage', type: 'timeseries', targets: [...] },
-    { id: 2, title: 'Memory Usage', type: 'timeseries', targets: [...] },
-    { id: 3, title: 'Disk I/O', type: 'timeseries', targets: [...] },
-    // ... more panels
-  ];
-</script>
+// Array of panel configurations
+const panels = [
+  { id: 1, title: 'CPU Usage', type: 'timeseries', targets: [...] },
+  { id: 2, title: 'Memory Usage', type: 'timeseries', targets: [...] },
+  { id: 3, title: 'Disk I/O', type: 'timeseries', targets: [...] },
+  // ... more panels
+];
 
 <!-- Dashboard controls -->
 <div class="dashboard-controls">
