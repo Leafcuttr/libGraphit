@@ -37,16 +37,6 @@
     ]
   };
 
-  async function getData(url: string): Promise<any> {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data from ${url}`);
-    }
-    const result = await response.json();
-    console.log('Mock: Fetched data from', url, result);
-    return result;
-  }
-
   onMount(async () => {
     try {
       loading = true;
