@@ -1,0 +1,39 @@
+{
+  "name": "libgraphit-sveltekit-example",
+  "version": "1.0.0",
+  "description": "Complete SvelteKit example for libGraphit - Grafana Chart.js Renderer",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "format": "prettier --plugin-search-dir . --write ."
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^5.0.0",
+    "@sveltejs/vite-plugin-svelte": "^3.1.2",
+    "@sveltejs/kit": "^2.22.5",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.28.0",
+    "eslint-plugin-svelte": "^2.30.0",
+    "svelte": "^4.0.0",
+    "svelte-check": "^3.8.6",
+    "svelte-preprocess": "^6.0.3",
+    "tslib": "^2.4.1",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@grafana-renderer/core": "file:../../packages/core",
+    "@grafana-renderer/svelte": "file:../../packages/svelte",
+    "chart.js": "^4.5.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-datasource-prometheus": "^2.3.2",
+    "date-fns": "^3.6.0"
+  },
+  "type": "module"
+}

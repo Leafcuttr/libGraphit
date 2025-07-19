@@ -43,8 +43,8 @@ export interface GrafanaDashboard {
 export interface GrafanaRendererOptions {
   prometheusUrl: string;
   timeRange?: {
-    from: string;
-    to: string;
+    start: number;
+    end: number;
   };
   theme?: 'light' | 'dark';
   refreshInterval?: number;
@@ -55,12 +55,16 @@ export interface PrometheusChartConfig extends ChartConfiguration {
   options: ChartConfiguration['options'] & {
     plugins?: {
       'datasource-prometheus'?: {
-        url: string;
-        query: string;
+        // Add required properties
+        prometheus: {
+          endpoint: string;  // The Prometheus server URL
+          baseURL: string; // Base URL for the Prometheus API
+        }
+        query: string;     // The PromQL query
         timeRange?: {
-          type: string;
-          start: string;
-          end: string;
+          type: 'relative' | 'absolute';
+          start: number // string;
+          end: number // string;
         };
       };
     };

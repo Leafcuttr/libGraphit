@@ -5,8 +5,10 @@ export interface GrafanaPanelProps {
   panelJson: GrafanaPanel;
   prometheusUrl: string;
   timeRange?: {
-    from: string;
-    to: string;
+    start: number,
+    end: number
+    // from: string;
+    // to: string;
   };
   theme?: 'light' | 'dark';
   refreshInterval?: number;

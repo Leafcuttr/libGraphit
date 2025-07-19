@@ -21,8 +21,10 @@ export const DEFAULT_RENDERER_OPTIONS = {
   theme: 'light',
   refreshInterval: 30000, // 30 seconds
   timeRange: {
-    from: 'now-1h',
-    to: 'now',
+    // from: 'now-1h',
+    // to: 'now',
+    start: 0, // Default to current time
+    end: 0, // Default to current time
   },
 } as const;
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { GrafanaRenderer, type GrafanaPanel, type RendererResult } from '@grafana-renderer/core';
+  import type { GrafanaPanel, RendererResult } from '@grafana-renderer/core';
+  import { GrafanaRenderer } from '@grafana-renderer/core';
   import type { GrafanaPanelProps } from './types';
 
   // Component props
@@ -57,6 +58,9 @@
         refreshInterval,
       };
 
+      console.log("options:", options);
+      console.log("panelToRender:", panelToRender);
+
       // Initialize the renderer
       rendererResult = await GrafanaRenderer.renderPanel(
         canvasElement,
@@ -104,13 +108,12 @@
       <p>{error}</p>
       <small>Check your panel JSON and Prometheus URL</small>
     </div>
-  {:else}
-    <canvas
-      bind:this={canvasElement}
-      class="chart-canvas"
-      style="width: 100%; height: 100%;"
-    ></canvas>
   {/if}
+  <canvas
+    bind:this={canvasElement}
+    class="chart-canvas"
+    style="width: 100%; height: 100%;"
+  ></canvas>
 </div>
 
 <style>
