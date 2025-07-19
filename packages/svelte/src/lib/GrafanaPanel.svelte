@@ -42,7 +42,7 @@
     if (!response.ok) {
       throw new Error(`Failed to fetch data from ${url}`);
     }
-    const result = response.json();
+    const result = await response.json();
     console.log('Mock: Fetched data from', url, result);
     return result;
   }
