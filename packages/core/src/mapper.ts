@@ -45,7 +45,7 @@ export class ChartConfigMapper {
             query: panel.queries[0]?.expr || '', // Use first query for now
             timeRange: {
               type: 'relative',
-              start: options.timeRange?.start ?? 1*60*60,
+              start: options.timeRange?.start ?? -1*60*60*1000,
               end: options.timeRange?.end ?? 0,
               step: options.timeRange?.step ?? 60,
             },
