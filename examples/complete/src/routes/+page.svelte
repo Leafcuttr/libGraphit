@@ -1,6 +1,6 @@
 <script lang="ts">
   import { GrafanaPanel } from '@grafana-renderer/svelte';
-  import { cpuUsagePanel } from '$lib/panels';
+  import { cpuUsagePanel, simplePanel } from '$lib/panels';
   import { prometheusUrl } from '$lib/stores';
 </script>
 
@@ -62,9 +62,9 @@
     
     <div class="chart-container">
       <GrafanaPanel 
-        panelJson={cpuUsagePanel} 
-        prometheusUrl={$prometheusUrl}
-        timeRange={{ type: 'relative', start: -12 * 60 * 60 * 1000, end: 0 }}
+        panelJson={simplePanel} 
+        prometheusUrl="https://demo.leafcuttr.io/proxy/api/v1"
+        timeRange={{ type: 'relative', start: -2*24 * 60 * 60 * 1000, end: 0, step: 600 }}
         width="100%"
         height="400px"
       />

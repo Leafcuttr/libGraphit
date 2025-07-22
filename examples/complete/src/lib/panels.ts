@@ -1,5 +1,44 @@
 // Sample Grafana panel configurations for demonstration
 
+export const simplePanel = {
+  id: 1,
+  title: 'CPU Usage Over Time',
+  type: 'timeseries',
+  targets: [
+    {
+      // expr: 'kafka_server_broker_cpu_usage{job="kafka"}',
+      expr: 'avg_over_time(jmx_scrape_duration[10m])',
+      refId: 'A',
+      range: true,
+      legendFormat: '{{instance}} CPU Usage',
+      interval: '30s',
+    }
+  ],
+  fieldConfig: {
+    defaults: {
+      unit: 'percent',
+      displayName: 'CPU Usage %',
+      min: 0,
+      max: 100
+    }
+  },
+  options: {
+    tooltip: {
+      mode: 'multi'
+    },
+    legend: {
+      displayMode: 'table',
+      placement: 'bottom'
+    }
+  },
+  gridPos: {
+    h: 8,
+    w: 12,
+    x: 0,
+    y: 0
+  }
+};
+
 export const cpuUsagePanel = {
   id: 1,
   title: 'CPU Usage Over Time',
