@@ -33,6 +33,7 @@ export interface GrafanaDashboard {
   time?: {
     from: string;
     to: string;
+    step?: number;
   };
   templating?: {
     list: any[];
@@ -45,6 +46,7 @@ export interface GrafanaRendererOptions {
   timeRange?: {
     start: number;
     end: number;
+    step?: number;
   };
   theme?: 'light' | 'dark';
   refreshInterval?: number;
@@ -65,6 +67,7 @@ export interface PrometheusChartConfig extends ChartConfiguration {
           type: 'relative' | 'absolute';
           start: number // string;
           end: number // string;
+          step?: number;
         };
       };
     };

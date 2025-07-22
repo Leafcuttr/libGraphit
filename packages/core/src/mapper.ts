@@ -47,6 +47,7 @@ export class ChartConfigMapper {
               type: 'relative',
               start: options.timeRange?.start ?? 1*60*60,
               end: options.timeRange?.end ?? 0,
+              step: options.timeRange?.step ?? 60,
             },
           },
         },

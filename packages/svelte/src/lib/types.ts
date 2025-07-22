@@ -6,7 +6,8 @@ export interface GrafanaPanelProps {
   prometheusUrl: string;
   timeRange?: {
     start: number,
-    end: number
+    end: number,
+    step?: number
     // from: string;
     // to: string;
   };
