@@ -1,4 +1,4 @@
-import type { ParsedPanel, PrometheusChartConfig, GrafanaRendererOptions } from './types';
+import type { ParsedPanel, PrometheusChartConfig, GrafanaRendererOptions, QueryHandler, CustomQueryHandler } from './types';
 import { CHART_TYPE_MAPPING } from './constants';
 import type {ChartTypeRegistry} from "chart.js"
 import ChartDatasourcePrometheusPlugin from 'chartjs-plugin-datasource-prometheus';
@@ -42,7 +42,7 @@ export class ChartConfigMapper {
               endpoint: options.prometheusUrl,
               baseURL: "/"
             },
-            query: panel.queries[0]?.expr || '', // Use first query for now
+            query: makeCustomHandler((panel.queries[0]?.expr || ''), options.queryHandler), // Use first query for now
             timeRange: {
               type: 'relative',
               start: options.timeRange?.start ?? -1*60*60*1000,
@@ -162,4 +162,19 @@ export class ChartConfigMapper {
 
     return config;
   }
+}
+
+function makeCustomHandler(query: string, handler?: QueryHandler): CustomQueryHandler | string {
+  if (!handler) return query;
+
+  return async (start: Date, end: Date, step: number) => {
+    try {
+      const result = await handler(query, start, end, step);
+      return result;
+    } catch (error) {
+      console.error('Error executing custom query handler:', error);
+      throw error;
+    }
+  };
+
 }

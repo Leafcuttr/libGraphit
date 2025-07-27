@@ -12,6 +12,7 @@
   export let refreshInterval: GrafanaPanelProps['refreshInterval'] = undefined;
   export let width: GrafanaPanelProps['width'] = '100%';
   export let height: GrafanaPanelProps['height'] = '400px';
+  export let queryHandler: GrafanaPanelProps['queryHandler'] = undefined;
   
   // Additional class for styling
   let className: GrafanaPanelProps['class'] = '';
@@ -46,16 +47,17 @@
       const panelToRender = panelJson || mockPanelJson;
       
       // Mock Prometheus URL if not provided
-      const prometheusUrlToUse = prometheusUrl || 'http://localhost:9090';
+      // const prometheusUrlToUse = prometheusUrl || 'http://localhost:9090';
 
       console.log('Mock: Rendering Grafana panel:', panelToRender);
       
       // Create renderer options
       const options = {
-        prometheusUrl: prometheusUrlToUse,
+        prometheusUrl,
         timeRange,
         theme,
         refreshInterval,
+        queryHandler,
       };
 
       console.log("options:", options);

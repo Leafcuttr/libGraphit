@@ -42,7 +42,8 @@ export interface GrafanaDashboard {
 
 // Renderer configuration options
 export interface GrafanaRendererOptions {
-  prometheusUrl: string;
+  prometheusUrl?: string;
+  queryHandler?: QueryHandler
   timeRange?: {
     start: number;
     end: number;
@@ -52,6 +53,9 @@ export interface GrafanaRendererOptions {
   refreshInterval?: number;
 }
 
+export type QueryHandler = (query: string, start: Date, end: Date, step: number) => Promise<any>;
+export type CustomQueryHandler = (start: Date, end: Date, step: number) => Promise<any>;
+
 // Chart.js configuration with Prometheus plugin
 export interface PrometheusChartConfig extends ChartConfiguration {
   options: ChartConfiguration['options'] & {
@@ -59,10 +63,10 @@ export interface PrometheusChartConfig extends ChartConfiguration {
       'datasource-prometheus'?: {
         // Add required properties
         prometheus: {
-          endpoint: string;  // The Prometheus server URL
+          endpoint?: string;  // The Prometheus server URL
           baseURL: string; // Base URL for the Prometheus API
         }
-        query: string;     // The PromQL query
+        query: string | CustomQueryHandler;     // The PromQL query
         timeRange?: {
           type: 'relative' | 'absolute';
           start: number // string;

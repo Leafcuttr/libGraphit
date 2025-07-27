@@ -2,6 +2,40 @@
   import { GrafanaPanel } from '@grafana-renderer/svelte';
   import { cpuUsagePanel, simplePanel } from '$lib/panels';
   import { prometheusUrl } from '$lib/stores';
+
+  async function simplePanelHandler(query: string, start: Date, end: Date, step: number) {
+    console.log('Fetching data for :', query, 'from', start, 'to', end, 'with step', step);
+    const now = Date.now();
+    return {
+      resultType: 'matrix',
+      result: [
+        {
+          metric: {
+            __name__: 'cpu_usage',
+            instance: 'localhost:9090',
+            job: 'prometheus'
+          },
+          values: [
+            [now, '0.5'],
+            [now-60, '0.6'],
+            [now-60*2, '0.4'],
+            [now-60*3, '0.5'],
+            [now-60*4, '0.7'],
+            [now-60*5, '0.8'],
+            [now-60*6, '0.6'],
+            [now-60*7, '0.5'],
+            [now-60*8, '0.4'],
+            [now-60*9, '0.5']
+          ]
+        }
+      ]
+    }
+    /*
+    return fetch(`${prometheusUrl}/query?query=${encodeURIComponent(query)}&start=${start.getTime()}&end=${end.getTime()}&step=${step}`)
+      .then(response => response.json())
+      .then(data => data.data.result);
+      */
+  }
 </script>
 
 <svelte:head>
@@ -63,6 +97,14 @@
     <div class="chart-container">
       <GrafanaPanel 
         panelJson={simplePanel} 
+        prometheusUrl="https://demo.leafcuttr.io/proxy/api/v1"
+        timeRange={{ type: 'relative', start: -2*24 * 60 * 60 * 1000, end: 0, step: 600 }}
+        width="100%"
+        height="400px"
+      />
+      <GrafanaPanel 
+        panelJson={simplePanel} 
+        queryHandler={simplePanelHandler}
         prometheusUrl="https://demo.leafcuttr.io/proxy/api/v1"
         timeRange={{ type: 'relative', start: -2*24 * 60 * 60 * 1000, end: 0, step: 600 }}
         width="100%"

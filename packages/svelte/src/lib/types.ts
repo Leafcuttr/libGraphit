@@ -1,9 +1,9 @@
-import type { GrafanaPanel, GrafanaRendererOptions } from '@grafana-renderer/core';
+import type { GrafanaPanel, GrafanaRendererOptions, QueryHandler } from '@grafana-renderer/core';
 
 // Svelte component props
 export interface GrafanaPanelProps {
   panelJson: GrafanaPanel;
-  prometheusUrl: string;
+  prometheusUrl?: string;
   timeRange?: {
     start: number,
     end: number,
@@ -16,6 +16,7 @@ export interface GrafanaPanelProps {
   width?: string;
   height?: string;
   class?: string;
+  queryHandler?: QueryHandler;
 }
 
 // Svelte action parameters
