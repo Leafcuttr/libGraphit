@@ -64,11 +64,8 @@
       console.log("panelToRender:", panelToRender);
 
       // Initialize the renderer
-      rendererResult = await GrafanaRenderer.renderPanel(
-        canvasElement,
-        panelToRender,
-        options
-      );
+      const renderer = new GrafanaRenderer(canvasElement, options);
+      rendererResult = await renderer.render(panelToRender);
 
       console.log('Mock: Panel rendered successfully');
       loading = false;
