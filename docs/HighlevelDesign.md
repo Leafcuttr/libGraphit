@@ -31,10 +31,12 @@ The system will be designed with a layered architecture to ensure separation of 
 +------------------------------------------------------+
 |                  Core Rendering Engine               |
 |                                                      |
-|  +---------------------+  +------------------------+ |
-|  | Grafana JSON Parser |  | Chart.js Config Mapper | |
-|  +---------------------+  +------------------------+ |
-|  |                Renderer Orchestrator             | |
+|  +--------------------------------------------------+ |
+|  |              GrafanaRenderer                     | |
+|  |  - parsePanel() (private)                        | |
+|  |  - mapToChartConfig() (private)                  | |
+|  |  - applyTheme() (private)                        | |
+|  |  - render() (public)                             | |
 |  +--------------------------------------------------+ |
 +------------------------------------------------------+
 |        Third-Party Libraries (Chart.js, etc.)        |
@@ -45,11 +47,12 @@ The system will be designed with a layered architecture to ensure separation of 
 
 This is the heart of the library, published as a standalone package. It will have no knowledge of any specific UI framework.
 
-*    Grafana JSON Parser: Responsible for consuming the raw Grafana dashboard JSON. It will validate the structure and extract a sanitized, intermediate representation of the panels, their queries, and visualization options.
-
-*    Chart.js Config Mapper: This is the most critical component. It takes the parsed panel data and translates it into a valid Chart.js configuration object. It will map Grafana panel types to Chart.js chart types and configure the chartjs-plugin-datasource-prometheus with the appropriate PromQL query, endpoint, and time range.
-
-&    Renderer Orchestrator: The public-facing API of the core engine. It will accept an HTML <canvas> element and the Grafana JSON. It will orchestrate the parsing and mapping process, instantiate the Chart.js chart on the provided canvas, and manage its lifecycle (creation, updates, destruction).
+*    GrafanaRenderer: A consolidated class that handles all rendering functionality. It accepts an HTML <canvas> element and Grafana panel JSON through its constructor and render method. The class internally handles:
+     - JSON parsing and validation (private parsePanel method)
+     - Chart.js configuration mapping (private mapToChartConfig method) 
+     - Theme application (private applyTheme method)
+     - Chart.js instance lifecycle management (creation, updates, destruction)
+     - Direct transformation from GrafanaPanel to PrometheusChartConfig without intermediate representations
 
 3.2. Framework Adapters
 
@@ -63,19 +66,17 @@ These are thin, separate packages that make the core engine easy to use within a
 
 *    Component Mount: The Svelte component mounts. It receives the Grafana JSON as a prop.
 
-*    Invocation: The adapter creates a <canvas> element and calls the render function from the Core Rendering Engine, passing the canvas and the JSON.
+*    Invocation: The adapter creates a <canvas> element, instantiates a GrafanaRenderer with the canvas and options, then calls the render method with the panel JSON.
 
-*    Parsing: The Core Engine's Grafana JSON Parser processes the JSON, extracting panel definitions (e.g., title, PromQL query, panel type).
+*    Processing: The GrafanaRenderer internally handles the complete transformation pipeline:
+     - Parses the Grafana panel JSON, extracting panel definitions (title, PromQL query, panel type)
+     - Maps the panel data directly to a Chart.js configuration object
+     - Places the PromQL query in options.plugins.datasource-prometheus.query
+     - Maps Grafana panel types (graph, timeseries) to Chart.js types (line)
+     - Maps title, axes, and visual settings to their Chart.js equivalents
+     - Applies theme configuration (light/dark mode)
 
-*    Mapping: For each panel, the Chart.js Config Mapper generates a corresponding Chart.js configuration object.
-
-     -   The PromQL query is placed in options.plugins.datasource-prometheus.query.
-
-     -   The Grafana panel type (graph, timeseries) is mapped to a Chart.js type (line).
-
-     -   Title, axes, and other visual settings are mapped to their Chart.js equivalents.
-
-*    Rendering: The Renderer Orchestrator creates a new Chart instance for each panel, using the generated configuration.
+*    Rendering: The GrafanaRenderer creates a new Chart.js instance using the generated configuration and returns a result object with lifecycle methods.
 
 *    Data Fetching: The chartjs-plugin-datasource-prometheus automatically handles fetching the data from the Prometheus endpoint specified in the configuration and populates the chart.
 
@@ -85,15 +86,31 @@ Core Engine API
 
 ```
 interface GrafanaRendererOptions {
-  // Potentially for global settings like theme, time range overrides, etc.
+  prometheusUrl?: string;
+  queryHandler?: QueryHandler;
+  timeRange?: {
+    start: number;
+    end: number;
+    step?: number;
+  };
+  theme?: 'light' | 'dark';
+  refreshInterval?: number;
 }
 
-// Main entry point
-function renderDashboard(
-  canvasElement: HTMLCanvasElement,
-  grafanaPanelJson: object, // A single panel object from the dashboard JSON
-  options?: GrafanaRendererOptions
-): Chart; // Returns the Chart.js instance for further manipulation
+interface RendererResult {
+  chart: Chart;
+  destroy: () => void;
+  update: (options?: Partial<GrafanaRendererOptions>) => void;
+}
+
+// Main class-based API
+class GrafanaRenderer {
+  constructor(canvas: HTMLCanvasElement, options: GrafanaRendererOptions);
+  
+  async render(panelJson: GrafanaPanel): Promise<RendererResult>;
+  update(newOptions?: Partial<GrafanaRendererOptions>): void;
+  destroy(): void;
+}
 ```
 
 ### SvelteKit Adapter API
@@ -101,14 +118,18 @@ function renderDashboard(
 ```svelte
 <!-- As a component -->
 <script>
-  import { GrafanaPanel } from 'grafana-renderer-svelte';
+  import { GrafanaPanel } from '@grafana-renderer/svelte';
   import dashboard from './my-dashboard.json';
 
   const panel = dashboard.panels[0];
+  const options = {
+    prometheusUrl: 'http://localhost:9090',
+    theme: 'light'
+  };
 </script>
 
 <div class="chart-container">
-  <GrafanaPanel panelJson={panel} />
+  <GrafanaPanel panelJson={panel} {options} />
 </div>
 ```
 

@@ -61,39 +61,20 @@ export interface PrometheusChartConfig extends ChartConfiguration {
   options: ChartConfiguration['options'] & {
     plugins?: {
       'datasource-prometheus'?: {
-        // Add required properties
         prometheus: {
-          endpoint?: string;  // The Prometheus server URL
-          baseURL: string; // Base URL for the Prometheus API
+          endpoint?: string;
+          baseURL: string;
         }
-        query: string | CustomQueryHandler;     // The PromQL query
+        query: string | CustomQueryHandler;
         timeRange?: {
           type: 'relative' | 'absolute';
-          start: number // string;
-          end: number // string;
+          start: number;
+          end: number;
           step?: number;
         };
       };
     };
   };
-}
-
-// Parsed panel data (intermediate representation)
-export interface ParsedPanel {
-  id: number;
-  title: string;
-  type: 'timeseries' | 'graph' | 'stat' | 'gauge' | 'table';
-  queries: ParsedQuery[];
-  unit?: string;
-  displayName?: string;
-  gridPos?: GrafanaPanel['gridPos'];
-}
-
-export interface ParsedQuery {
-  expr: string;
-  refId: string;
-  legendFormat?: string;
-  interval?: string;
 }
 
 // Renderer result
