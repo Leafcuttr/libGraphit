@@ -98,7 +98,7 @@ export interface ParsedQuery {
 
 // Renderer result
 export interface RendererResult {
-  chart: Chart;
+  chart: Chart | null;
   destroy: () => void;
   update: (options?: Partial<GrafanaRendererOptions>) => void;
 }
