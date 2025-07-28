@@ -29,13 +29,8 @@ The system will be designed with a layered architecture to ensure separation of 
 |                 Framework Adapter                    |
 |                (e.g., Svelte Action/Component)       |
 +------------------------------------------------------+
-|                  Core Rendering Engine               |
-|                                                      |
-|  +---------------------+  +------------------------+ |
-|  | Grafana JSON Parser |  | Chart.js Config Mapper | |
-|  +---------------------+  +------------------------+ |
-|  |                Renderer Orchestrator             | |
-|  +--------------------------------------------------+ |
+|                    GrafanaChart Class                |
+|              (Parses, Maps, and Renders)             |
 +------------------------------------------------------+
 |        Third-Party Libraries (Chart.js, etc.)        |
 +------------------------------------------------------+
@@ -43,13 +38,11 @@ The system will be designed with a layered architecture to ensure separation of 
 
 3.1. Core Rendering Engine (Framework-Agnostic)
 
-This is the heart of the library, published as a standalone package. It will have no knowledge of any specific UI framework.
+This is the heart of the library, published as a standalone package. It will have no knowledge of any specific UI framework. It consists of a single class, `GrafanaChart`, which is responsible for:
 
-*    Grafana JSON Parser: Responsible for consuming the raw Grafana dashboard JSON. It will validate the structure and extract a sanitized, intermediate representation of the panels, their queries, and visualization options.
-
-*    Chart.js Config Mapper: This is the most critical component. It takes the parsed panel data and translates it into a valid Chart.js configuration object. It will map Grafana panel types to Chart.js chart types and configure the chartjs-plugin-datasource-prometheus with the appropriate PromQL query, endpoint, and time range.
-
-&    Renderer Orchestrator: The public-facing API of the core engine. It will accept an HTML <canvas> element and the Grafana JSON. It will orchestrate the parsing and mapping process, instantiate the Chart.js chart on the provided canvas, and manage its lifecycle (creation, updates, destruction).
+*   **Parsing:** Consuming the raw Grafana dashboard JSON, validating its structure, and extracting a sanitized, intermediate representation of the panels, their queries, and visualization options.
+*   **Mapping:** Translating the parsed panel data into a valid Chart.js configuration object. It maps Grafana panel types to Chart.js chart types and configures the `chartjs-plugin-datasource-prometheus` with the appropriate PromQL query, endpoint, and time range.
+*   **Rendering:** Accepting an HTML `<canvas>` element and the Grafana JSON, and instantiating the Chart.js chart on the provided canvas. It also manages the chart's lifecycle (creation, updates, destruction).
 
 3.2. Framework Adapters
 
@@ -59,41 +52,30 @@ These are thin, separate packages that make the core engine easy to use within a
 
 4. Data Flow
 
-*    Initialization: The user's application (e.g., a SvelteKit page) imports the SvelteKit adapter.
-
-*    Component Mount: The Svelte component mounts. It receives the Grafana JSON as a prop.
-
-*    Invocation: The adapter creates a <canvas> element and calls the render function from the Core Rendering Engine, passing the canvas and the JSON.
-
-*    Parsing: The Core Engine's Grafana JSON Parser processes the JSON, extracting panel definitions (e.g., title, PromQL query, panel type).
-
-*    Mapping: For each panel, the Chart.js Config Mapper generates a corresponding Chart.js configuration object.
-
-     -   The PromQL query is placed in options.plugins.datasource-prometheus.query.
-
-     -   The Grafana panel type (graph, timeseries) is mapped to a Chart.js type (line).
-
-     -   Title, axes, and other visual settings are mapped to their Chart.js equivalents.
-
-*    Rendering: The Renderer Orchestrator creates a new Chart instance for each panel, using the generated configuration.
-
-*    Data Fetching: The chartjs-plugin-datasource-prometheus automatically handles fetching the data from the Prometheus endpoint specified in the configuration and populates the chart.
+*    **Initialization**: The user's application (e.g., a SvelteKit page) imports the SvelteKit adapter.
+*    **Component Mount**: The Svelte component mounts. It receives the Grafana JSON as a prop.
+*    **Invocation**: The adapter creates a `<canvas>` element and instantiates the `GrafanaChart` class from the Core Rendering Engine, passing the canvas, the panel JSON, and the options.
+*    **Parsing, Mapping, and Rendering**: The `GrafanaChart` class's constructor:
+    *   Parses the Grafana panel JSON.
+    *   Maps the parsed data to a Chart.js configuration.
+    *   Creates a new Chart.js instance on the canvas.
+*    **Data Fetching**: The `chartjs-plugin-datasource-prometheus` automatically handles fetching the data from the Prometheus endpoint specified in the configuration and populates the chart.
 
 5. API Design (Conceptual)
 
 Core Engine API
 
-```
-interface GrafanaRendererOptions {
-  // Potentially for global settings like theme, time range overrides, etc.
-}
+```typescript
+class GrafanaChart {
+  constructor(
+    canvasElement: HTMLCanvasElement,
+    panelJson: object,
+    options: GrafanaRendererOptions
+  );
 
-// Main entry point
-function renderDashboard(
-  canvasElement: HTMLCanvasElement,
-  grafanaPanelJson: object, // A single panel object from the dashboard JSON
-  options?: GrafanaRendererOptions
-): Chart; // Returns the Chart.js instance for further manipulation
+  update(newOptions?: Partial<GrafanaRendererOptions>): void;
+  destroy(): void;
+}
 ```
 
 ### SvelteKit Adapter API

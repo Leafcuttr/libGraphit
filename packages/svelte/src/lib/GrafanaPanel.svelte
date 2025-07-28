@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import type { GrafanaPanel, RendererResult } from '@grafana-renderer/core';
-  import { GrafanaRenderer } from '@grafana-renderer/core';
+  import { GrafanaChart } from '@grafana-renderer/core';
   import type { GrafanaPanelProps } from './types';
 
   // Component props
@@ -64,7 +64,7 @@
       console.log("panelToRender:", panelToRender);
 
       // Initialize the renderer
-      rendererResult = await GrafanaRenderer.renderPanel(
+      rendererResult = new GrafanaChart(
         canvasElement,
         panelToRender,
         options

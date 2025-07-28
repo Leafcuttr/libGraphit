@@ -1,4 +1,4 @@
-import { GrafanaRenderer, type RendererResult } from '@grafana-renderer/core';
+import { GrafanaChart, type RendererResult } from '@grafana-renderer/core';
 import type { GrafanaActionParams, GrafanaActionResult } from './types';
 
 /**
@@ -18,8 +18,7 @@ export function grafanaAction(
     try {
       console.log('Mock: Initializing Grafana action with params:', params);
       
-      const renderer = new GrafanaRenderer(canvas, params.options);
-      rendererResult = await renderer.render(params.panelJson);
+      rendererResult = new GrafanaChart(canvas, params.panelJson, params.options);
       
       console.log('Mock: Grafana action initialized successfully');
     } catch (error) {

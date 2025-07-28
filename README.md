@@ -83,7 +83,7 @@ Using the library in a SvelteKit project is simple. Just import the GrafanaPanel
 How It Works
 
 The library consists of two main parts:
-* @grafana-renderer/core: A vanilla TypeScript engine that takes a Grafana panel JSON object and an HTMLCanvasElement and returns a Chart.js instance. It contains all the parsing and mapping logic.
+* @grafana-renderer/core: A vanilla TypeScript engine that provides a `GrafanaChart` class. This class takes a Grafana panel JSON object and an HTMLCanvasElement and renders a Chart.js instance. It contains all the parsing, mapping, and rendering logic.
 
 * @grafana-renderer/svelte: A thin wrapper that provides a Svelte component (<GrafanaPanel>) to make integration with Svelte's lifecycle seamless.
 
