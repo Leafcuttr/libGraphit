@@ -57,6 +57,14 @@ export class GrafanaRenderer {
     [GrafanaRenderer.SUPPORTED_PANEL_TYPES.TABLE]: 'bar',
   } as const;
 
+  private static readonly PANEL_TYPE_MAPPING: Record<string, ParsedPanel['type']> = {
+    'timeseries': 'timeseries',
+    'graph': 'graph',
+    'stat': 'stat',
+    'gauge': 'gauge',
+    'table': 'table',
+  } as const;
+
   private static readonly DEFAULT_RENDERER_OPTIONS = {
     theme: 'light',
     refreshInterval: 30000,
@@ -208,20 +216,7 @@ export class GrafanaRenderer {
    * Map Grafana panel type to our supported types
    */
   private mapPanelType(grafanaType: string): ParsedPanel['type'] {
-    switch (grafanaType) {
-      case 'timeseries':
-        return 'timeseries';
-      case 'graph':
-        return 'graph';
-      case 'stat':
-        return 'stat';
-      case 'gauge':
-        return 'gauge';
-      case 'table':
-        return 'table';
-      default:
-        return 'timeseries';
-    }
+    return GrafanaRenderer.PANEL_TYPE_MAPPING[grafanaType] || 'timeseries';
   }
 
   /**
