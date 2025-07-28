@@ -22,10 +22,10 @@ Chart.register(...registerables);
  * A class that parses a Grafana panel JSON and renders it as a Chart.js chart.
  */
 export class GrafanaChart {
-  private chart: Chart | null = null;
-  private canvas: HTMLCanvasElement;
-  private options: GrafanaRendererOptions;
-  private panel: GrafanaPanel;
+  public chart: Chart | null = null;
+  public canvas: HTMLCanvasElement;
+  public options: GrafanaRendererOptions;
+  public panel: GrafanaPanel;
 
   constructor(canvas: HTMLCanvasElement, panel: GrafanaPanel, options: GrafanaRendererOptions) {
     if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
