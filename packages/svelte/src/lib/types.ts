@@ -30,3 +30,18 @@ export interface GrafanaActionResult {
   update?: (params: GrafanaActionParams) => void;
   destroy?: () => void;
 }
+
+// Dashboard component props
+export interface GrafanaDashboardProps {
+  dashboardJson: import('@grafana-renderer/core').GrafanaDashboard;
+  prometheusUrl?: string;
+  timeRange?: {
+    start: number,
+    end: number,
+    step?: number
+  };
+  theme?: 'light' | 'dark';
+  refreshInterval?: number;
+  class?: string;
+  queryHandler?: QueryHandler;
+}
