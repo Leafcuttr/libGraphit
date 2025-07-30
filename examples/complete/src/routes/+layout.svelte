@@ -21,6 +21,7 @@
       </h1>
       
       <a href="/" class:active={currentPath === '/'}>Home</a>
+      <a href="/dashboard" class:active={currentPath === '/dashboard'}>Dashboard</a>
       <a href="/basic" class:active={currentPath === '/basic'}>Basic Usage</a>
       <a href="/advanced" class:active={currentPath === '/advanced'}>Advanced</a>
       <a href="/multi-panel" class:active={currentPath === '/multi-panel'}>Multi-Panel</a>
