@@ -13,55 +13,98 @@ npm install @leafcuttr/libgraphit-core chart.js chartjs-plugin-datasource-promet
 ```typescript
 import { GrafanaRenderer } from '@leafcuttr/libgraphit-core';
 
+// Get the canvas element
 const canvas = document.getElementById('chart') as HTMLCanvasElement;
-const panelJson = { /* your Grafana panel JSON */ };
+
+// Your Grafana panel JSON
+const panelJson = { /* ... your panel JSON ... */ };
+
+// Renderer options
 const options = {
-  prometheusUrl: 'http://localhost:9090',
-  theme: 'light'
+  prometheusUrl: 'http://localhost:9090', // Your Prometheus instance
 };
 
-const result = await GrafanaRenderer.renderPanel(canvas, panelJson, options);
+// Create a new renderer instance
+const renderer = new GrafanaRenderer(canvas, options);
+
+// Render the panel
+renderer.render(panelJson).then(result => {
+  console.log('Chart rendered successfully!', result.chart);
+
+  // You can now interact with the chart instance
+  // result.update({ theme: 'dark' });
+  // result.destroy();
+});
 ```
 
 ## API Reference
 
-### GrafanaRenderer
+### `GrafanaRenderer`
 
-Main class for rendering Grafana panels.
+The main class for rendering Grafana panels.
 
-#### Methods
+**`constructor(canvas: HTMLCanvasElement, options: GrafanaRendererOptions)`**
 
-- `constructor(canvas: HTMLCanvasElement, options: GrafanaRendererOptions)`
-- `render(panelJson: GrafanaPanel): Promise<RendererResult>`
-- `update(options?: Partial<GrafanaRendererOptions>): void`
-- `destroy(): void`
-- `static renderPanel(canvas, panelJson, options): Promise<RendererResult>`
+Creates a new `GrafanaRenderer` instance.
 
-### GrafanaJsonParser
+-   `canvas`: The HTML canvas element to render the chart on.
+-   `options`: Configuration options for the renderer. See `GrafanaRendererOptions`.
 
-Utility class for parsing Grafana panel JSON.
+**`render(panelJson: GrafanaPanel): Promise<RendererResult>`**
 
-#### Methods
+Renders a Grafana panel.
 
-- `static parsePanel(panelJson: GrafanaPanel): ParsedPanel`
-- `static validatePanel(panelJson: any): boolean`
+-   `panelJson`: The JSON object representing a single Grafana panel.
+-   Returns a `Promise` that resolves with a `RendererResult` object.
 
-### ChartConfigMapper
+**`update(options?: Partial<GrafanaRendererOptions>): void`**
 
-Utility class for mapping parsed panels to Chart.js configurations.
+Updates the chart with new options.
 
-#### Methods
+-   `options`: The new options to apply.
 
-- `static mapToChartConfig(panel: ParsedPanel, options: GrafanaRendererOptions): PrometheusChartConfig`
-- `static applyTheme(config: PrometheusChartConfig, theme: 'light' | 'dark'): PrometheusChartConfig`
+**`destroy(): void`**
+
+Destroys the chart instance and cleans up resources.
+
+---
+
+### Important Types
+
+**`GrafanaRendererOptions`**
+
+An object containing configuration for the renderer.
+
+-   `prometheusUrl?: string`: The URL of your Prometheus server.
+-   `queryHandler?: QueryHandler`: A custom function to handle data fetching. This allows you to implement custom logic for retrieving and transforming data.
+-   `timeRange?: { start: number; end: number; step?: number; }`: The time range for the queries.
+-   `theme?: 'light' | 'dark'`: The theme for the chart. Defaults to `'light'`.
+-   `refreshInterval?: number`: The interval in milliseconds to refresh the chart.
+
+**`QueryHandler`**
+
+A function signature for custom query handling.
+`type QueryHandler = (query: string, start: Date, end: Date, step: number) => Promise<any>;`
+
+**`RendererResult`**
+
+An object returned by the `render` method.
+
+-   `chart: Chart`: The Chart.js chart instance.
+-   `destroy: () => void`: A function to destroy the chart.
+-   `update: (options?: Partial<GrafanaRendererOptions>) => void`: A function to update the chart with new options.
+
+**`GrafanaDashboard`**
+
+The library also understands the structure of a Grafana dashboard JSON, which contains an array of `GrafanaPanel` objects. You can iterate over the `panels` array in a dashboard and render each one individually.
 
 ## Supported Panel Types
 
-- `timeseries` - Time series line charts
-- `stat` - Single stat panels
-- `graph` - Legacy graph panels (mapped to line charts)
-- `gauge` - Gauge panels (mapped to doughnut charts)
-- `table` - Table panels (basic support)
+-   `timeseries` - Time series line charts
+-   `stat` - Single stat panels
+-   `graph` - Legacy graph panels (mapped to line charts)
+-   `gauge` - Gauge panels (mapped to doughnut charts)
+-   `table` - Table panels (basic support)
 
 ## License
 

@@ -10,7 +10,40 @@ npm install @leafcuttr/libgraphit-svelte @leafcuttr/libgraphit-core chart.js cha
 
 ## Usage
 
-### Component Usage
+This package provides two ways to render Grafana visualizations:
+
+1.  **[`<GrafanaDashboard>`](#grafanadashboard-component)**: A component that renders an entire Grafana dashboard with a grid layout.
+2.  **[`<GrafanaPanel>`](#grafanapanel-component)**: A component for rendering a single Grafana panel.
+3.  **[`grafanaAction`](#action-usage)**: A Svelte action for more advanced use cases.
+
+---
+
+### `<GrafanaDashboard>` Component
+
+This component renders a full Grafana dashboard, including its grid layout.
+
+**Usage**
+
+```svelte
+<script>
+  import { GrafanaDashboard } from '@leafcuttr/libgraphit-svelte';
+  import dashboardData from './my-dashboard.json';
+</script>
+
+<GrafanaDashboard
+  dashboardJson={dashboardData}
+  prometheusUrl="http://localhost:9090"
+  theme="dark"
+/>
+```
+
+---
+
+### `<GrafanaPanel>` Component
+
+This component renders a single Grafana panel.
+
+**Usage**
 
 ```svelte
 <script>
@@ -26,6 +59,8 @@ npm install @leafcuttr/libgraphit-svelte @leafcuttr/libgraphit-core chart.js cha
   height="400px"
 />
 ```
+
+---
 
 ### Action Usage
 
@@ -47,7 +82,19 @@ npm install @leafcuttr/libgraphit-svelte @leafcuttr/libgraphit-core chart.js cha
 
 ## Component Props
 
-### GrafanaPanel
+### `<GrafanaDashboard>`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `dashboardJson` | `GrafanaDashboard` | required | The Grafana dashboard JSON object. |
+| `prometheusUrl` | `string` | required | URL of the Prometheus server. |
+| `timeRange` | `{ start: number, end: number }` | `undefined` | Time range for queries. If not provided, it's inferred from the dashboard JSON. |
+| `theme` | `'light' \| 'dark'` | `'light'` | Chart theme. |
+| `refreshInterval` | `number` | `undefined` | Auto-refresh interval in milliseconds. |
+| `queryHandler` | `QueryHandler` | `undefined` | A custom function to handle data fetching. |
+| `class` | `string` | `''` | Additional CSS classes for the container. |
+
+### `<GrafanaPanel>`
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
