@@ -10,8 +10,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "20"
-      - run: cd packages/core && npm install && npm run build
-      - run: cd packages/svelte && npm install && npm run build
+      - run: cd packages/core && npm ci && npm run build
+      - run: cd packages/svelte && npm ci && npm run build
       - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
