@@ -13,15 +13,12 @@ This library parses your Grafana dashboard JSON, extracts the configuration for 
 This means you can define your charts in Grafana and render them anywhere!
 ## Features
 
-   * Framework-Agnostic Core: Use it in any JavaScript project.
-
-   * SvelteKit Adapter: Get up and running in SvelteKit in minutes.
-
-   * Type-Safe: Written entirely in TypeScript.
-
-   * Dynamic Data: Charts are connected directly to your Prometheus datasource.
-
-   * Reusable Logic: Don't repeat your PromQL queries and chart configurations.
+   * **Render Entire Dashboards**: Use the `<GrafanaDashboard>` Svelte component to render a full dashboard grid.
+   * **Framework-Agnostic Core**: Use the core rendering engine in any JavaScript project.
+   * **SvelteKit Adapter**: Get up and running in SvelteKit in minutes with the `<GrafanaPanel>` component.
+   * **Type-Safe**: Written entirely in TypeScript.
+   * **Dynamic Data**: Charts are connected directly to your Prometheus datasource.
+   * **Reusable Logic**: Don't repeat your PromQL queries and chart configurations.
 
 ## Installation
 
@@ -36,37 +33,57 @@ npm install @leafcuttr/libgraphit-core @leafcuttr/libgraphit-svelte
 
 ## Usage with SvelteKit
 
-Using the library in a SvelteKit project is simple. Just import the GrafanaPanel component and pass it your panel's JSON configuration.
+There are two primary ways to use the Svelte adapter: rendering a full dashboard or rendering a single panel.
 
-  *  Get your Grafana JSON:
+### Rendering a Full Dashboard
 
-     -   In Grafana, go to your dashboard settings (the cog icon).
+The easiest way to get started is to render an entire dashboard. The `<GrafanaDashboard>` component will handle the layout and render all panels.
 
-     -   Select "JSON Model" from the side menu.
+  *  **Get your Grafana Dashboard JSON**:
+     - In Grafana, go to your dashboard settings (the cog icon).
+     - Select "JSON Model" from the side menu.
+     - Copy the entire JSON object and save it as a `.json` file in your project.
 
-     -   Find the panel you want to render in the panels array. Copy that panel's JSON object. You can save this as a .json file in your project.
-
-  *  Use the component in your .svelte file:
+  *  **Use the component in your `.svelte` file**:
 
 ```svelte
 <script lang="ts">
-  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
-
-  // Import the entire dashboard JSON
+  import { GrafanaDashboard } from '@leafcuttr/libgraphit-svelte';
   import dashboardJson from '$lib/your-dashboard.json';
 
-  // Define your Prometheus endpoint
   const PROMETHEUS_URL = 'http://localhost:9090';
-
-  // Select the specific panel you want to render from the JSON
-  // For this example, we'll render the first panel in the array.
-  const panelJson = dashboardJson.panels[0];
 </script>
 
 <main>
   <h1>My Application Dashboard</h1>
-  <p>This chart is defined in Grafana but rendered here with Chart.js!</p>
+  <p>This entire dashboard is defined in Grafana but rendered here with Svelte and Chart.js!</p>
 
+  <GrafanaDashboard
+    dashboardJson={dashboardJson}
+    prometheusUrl={PROMETHEUS_URL}
+    theme="dark"
+  />
+</main>
+```
+
+### Rendering a Single Panel
+
+If you only need a single panel from a dashboard, you can use the `<GrafanaPanel>` component.
+
+  *  **Get your Panel JSON**: Follow the steps above to get the dashboard JSON, then find the specific panel you want in the `panels` array and extract its JSON object.
+
+  *  **Use the component in your `.svelte` file**:
+
+```svelte
+<script lang="ts">
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
+  import dashboardJson from '$lib/your-dashboard.json';
+
+  const PROMETHEUS_URL = 'http://localhost:9090';
+  const panelJson = dashboardJson.panels.find(p => p.title === 'My Awesome Panel');
+</script>
+
+<main>
   <div style="width: 80%; height: 400px; margin: auto;">
     {#if panelJson}
       <GrafanaPanel
@@ -85,12 +102,12 @@ How It Works
 The library consists of two main parts:
 * @leafcuttr/libgraphit-core: A vanilla TypeScript engine that takes a Grafana panel JSON object and an HTMLCanvasElement and returns a Chart.js instance. It contains all the parsing and mapping logic.
 
-* @leafcuttr/libgraphit-svelte: A thin wrapper that provides a Svelte component (<GrafanaPanel>) to make integration with Svelte's lifecycle seamless.
+* @leafcuttr/libgraphit-svelte: A thin wrapper that provides Svelte components (`<GrafanaDashboard>` and `<GrafanaPanel>`) to make integration with Svelte's lifecycle seamless.
 
 This architecture allows for new adapters (e.g., for React or Vue) to be built on top of the same core engine.
 Current Limitations
 
-  * Panel Support: Currently, only timeseries and graph panels are well-supported.
+  * **Panel Support**: Currently, `timeseries`, `graph`, `stat`, `gauge`, and `table` panels are supported. Community contributions for other panel types are welcome.
 
   * Datasource: Only Prometheus is supported as a datasource.
 
