@@ -58,8 +58,8 @@ Utility class for mapping parsed panels to Chart.js configurations.
 ## Supported Panel Types
 
 - `timeseries` - Time series line charts
+- `stat` - Single stat panels
 - `graph` - Legacy graph panels (mapped to line charts)
-- `stat` - Single stat panels (mapped to doughnut charts)
 - `gauge` - Gauge panels (mapped to doughnut charts)
 - `table` - Table panels (basic support)
 
