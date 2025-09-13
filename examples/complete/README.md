@@ -145,7 +145,7 @@ All styles are in `src/app.css` using CSS custom properties. You can easily cust
 
 ```svelte
 <script>
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   
   const panelJson = {
     id: 1,
@@ -168,7 +168,7 @@ All styles are in `src/app.css` using CSS custom properties. You can easily cust
 
 ```svelte
 <script>
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import { writable } from 'svelte/store';
   
   const timeRange = writable({ from: 'now-1h', to: 'now' });
@@ -193,7 +193,7 @@ All styles are in `src/app.css` using CSS custom properties. You can easily cust
 
 ```svelte
 <script>
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   
   const panels = [
     { id: 1, title: 'CPU', /* ... */ },

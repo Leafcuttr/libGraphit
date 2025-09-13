@@ -31,7 +31,7 @@ You will also need to install Chart.js and its Prometheus plugin, which are peer
 
 ```
 npm install chart.js chartjs-adapter-date-fns date-fns chartjs-plugin-datasource-prometheus
-npm install @grafana-renderer/core @grafana-renderer/svelte
+npm install @leafcuttr/libgraphit-core @leafcuttr/libgraphit-svelte
 ```
 
 ## Usage with SvelteKit
@@ -50,7 +50,7 @@ Using the library in a SvelteKit project is simple. Just import the GrafanaPanel
 
 ```svelte
 <script lang="ts">
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
 
   // Import the entire dashboard JSON
   import dashboardJson from '$lib/your-dashboard.json';
@@ -83,9 +83,9 @@ Using the library in a SvelteKit project is simple. Just import the GrafanaPanel
 How It Works
 
 The library consists of two main parts:
-* @grafana-renderer/core: A vanilla TypeScript engine that takes a Grafana panel JSON object and an HTMLCanvasElement and returns a Chart.js instance. It contains all the parsing and mapping logic.
+* @leafcuttr/libgraphit-core: A vanilla TypeScript engine that takes a Grafana panel JSON object and an HTMLCanvasElement and returns a Chart.js instance. It contains all the parsing and mapping logic.
 
-* @grafana-renderer/svelte: A thin wrapper that provides a Svelte component (<GrafanaPanel>) to make integration with Svelte's lifecycle seamless.
+* @leafcuttr/libgraphit-svelte: A thin wrapper that provides a Svelte component (<GrafanaPanel>) to make integration with Svelte's lifecycle seamless.
 
 This architecture allows for new adapters (e.g., for React or Vue) to be built on top of the same core engine.
 Current Limitations

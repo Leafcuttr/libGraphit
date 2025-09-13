@@ -1,11 +1,11 @@
-# @grafana-renderer/svelte
+# @leafcuttr/libgraphit-svelte
 
 Svelte adapter for the Grafana Chart.js Renderer.
 
 ## Installation
 
 ```bash
-npm install @grafana-renderer/svelte @grafana-renderer/core chart.js chartjs-plugin-datasource-prometheus chartjs-adapter-date-fns date-fns
+npm install @leafcuttr/libgraphit-svelte @leafcuttr/libgraphit-core chart.js chartjs-plugin-datasource-prometheus chartjs-adapter-date-fns date-fns
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ npm install @grafana-renderer/svelte @grafana-renderer/core chart.js chartjs-plu
 
 ```svelte
 <script>
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import panelData from './my-panel.json';
 </script>
 
@@ -31,7 +31,7 @@ npm install @grafana-renderer/svelte @grafana-renderer/core chart.js chartjs-plu
 
 ```svelte
 <script>
-  import { grafanaAction } from '@grafana-renderer/svelte';
+  import { grafanaAction } from '@leafcuttr/libgraphit-svelte';
   
   const params = {
     panelJson: { /* panel JSON */ },

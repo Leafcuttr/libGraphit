@@ -1,4 +1,4 @@
-import { GrafanaRenderer, type RendererResult } from '@grafana-renderer/core';
+import { GrafanaRenderer, type RendererResult } from '@leafcuttr/libgraphit-core';
 import type { GrafanaActionParams, GrafanaActionResult } from './types';
 
 /**

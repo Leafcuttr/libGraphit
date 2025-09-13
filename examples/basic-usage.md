@@ -3,7 +3,7 @@
 ## Core Library Usage
 
 ```typescript
-import { GrafanaRenderer } from '@grafana-renderer/core';
+import { GrafanaRenderer } from '@leafcuttr/libgraphit-core';
 
 // Your Grafana panel JSON
 const panelJson = {
@@ -49,7 +49,7 @@ result.destroy();
 
 ```svelte
 <script lang="ts">
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import panelData from './my-panel.json';
 
   const prometheusUrl = 'http://localhost:9090';
@@ -91,8 +91,8 @@ result.destroy();
 
 ```svelte
 <script lang="ts">
-  import { grafanaAction } from '@grafana-renderer/svelte';
-  import type { GrafanaPanel } from '@grafana-renderer/core';
+  import { grafanaAction } from '@leafcuttr/libgraphit-svelte';
+  import type { GrafanaPanel } from '@leafcuttr/libgraphit-core';
 
   const panelJson: GrafanaPanel = {
     id: 2,

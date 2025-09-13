@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import type { GrafanaPanel, RendererResult } from '@grafana-renderer/core';
-  import { GrafanaRenderer } from '@grafana-renderer/core';
+  import type { GrafanaPanel, RendererResult } from '@leafcuttr/libgraphit-core';
+  import { GrafanaRenderer } from '@leafcuttr/libgraphit-core';
   import type { GrafanaPanelProps } from './types';
 
   // Component props

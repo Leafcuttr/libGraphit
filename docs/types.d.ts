@@ -1,4 +1,4 @@
-import type { GrafanaPanel, GrafanaRendererOptions } from '@grafana-renderer/core';
+import type { GrafanaPanel, GrafanaRendererOptions } from '@leafcuttr/libgraphit-core';
 export interface GrafanaPanelProps {
     panelJson: GrafanaPanel;
     prometheusUrl: string;

@@ -10,7 +10,7 @@
     "declarationMap": true,
     "verbatimModuleSyntax": true,
     "types": ["svelte"],
-    "paths": { "@grafana-renderer/core": [ "../core/dist"] }
+    "paths": { "@leafcuttr/libgraphit-core": [ "../core/dist"] }
   },
   "include": [
     "src/**/*"

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import { diskIOPanel } from '$lib/panels';
   import { prometheusUrl, timeRange, theme, refreshInterval } from '$lib/stores';
 
@@ -141,7 +141,7 @@
     
     <div class="code">
 {`<script>
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import { writable } from 'svelte/store';
 
   // Reactive stores for configuration

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import { cpuUsagePanel, memoryUsagePanel } from '$lib/panels';
   import { prometheusUrl } from '$lib/stores';
 </script>
@@ -22,7 +22,7 @@
     <h3>Usage</h3>
     <div class="code">
 {`<script>
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   
   const panelJson = {
     id: 1,

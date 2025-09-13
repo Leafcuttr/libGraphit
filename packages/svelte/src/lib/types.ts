@@ -1,4 +1,4 @@
-import type { GrafanaPanel, GrafanaRendererOptions, QueryHandler } from '@grafana-renderer/core';
+import type { GrafanaPanel, GrafanaRendererOptions, QueryHandler } from '@leafcuttr/libgraphit-core';
 
 // Svelte component props
 export interface GrafanaPanelProps {
@@ -33,7 +33,7 @@ export interface GrafanaActionResult {
 
 // Dashboard component props
 export interface GrafanaDashboardProps {
-  dashboardJson: import('@grafana-renderer/core').GrafanaDashboard;
+  dashboardJson: import('@leafcuttr/libgraphit-core').GrafanaDashboard;
   prometheusUrl?: string;
   timeRange?: {
     start: number,

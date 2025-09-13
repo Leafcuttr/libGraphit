@@ -1,6 +1,6 @@
 <script lang="ts">
   import GrafanaPanel from './GrafanaPanel.svelte';
-  import type { GrafanaDashboard } from '@grafana-renderer/core';
+  import type { GrafanaDashboard } from '@leafcuttr/libgraphit-core';
   import type { GrafanaDashboardProps } from './types';
 
   export let dashboardJson: GrafanaDashboardProps['dashboardJson'];

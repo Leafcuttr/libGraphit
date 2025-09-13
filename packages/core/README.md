@@ -1,17 +1,17 @@
-# @grafana-renderer/core
+# @leafcuttr/libgraphit-core
 
 The core framework-agnostic library for rendering Grafana panels with Chart.js.
 
 ## Installation
 
 ```bash
-npm install @grafana-renderer/core chart.js chartjs-plugin-datasource-prometheus chartjs-adapter-date-fns date-fns
+npm install @leafcuttr/libgraphit-core chart.js chartjs-plugin-datasource-prometheus chartjs-adapter-date-fns date-fns
 ```
 
 ## Usage
 
 ```typescript
-import { GrafanaRenderer } from '@grafana-renderer/core';
+import { GrafanaRenderer } from '@leafcuttr/libgraphit-core';
 
 const canvas = document.getElementById('chart') as HTMLCanvasElement;
 const panelJson = { /* your Grafana panel JSON */ };

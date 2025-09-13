@@ -1,5 +1,5 @@
 {
-  "name": "@grafana-renderer/core",
+  "name": "@leafcuttr/libgraphit-core",
   "type": "module",
   "version": "0.0.5",
   "description": "Core framework-agnostic library for rendering Grafana panels with Chart.js",

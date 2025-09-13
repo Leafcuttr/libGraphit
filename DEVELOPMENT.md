@@ -92,7 +92,7 @@ libgraphit/
 
 ## Architecture
 
-### Core Library (`@grafana-renderer/core`)
+### Core Library (`@leafcuttr/libgraphit-core`)
 
 The core library is framework-agnostic and handles:
 
@@ -111,7 +111,7 @@ The core library is framework-agnostic and handles:
    - Creates and manages Chart.js instances
    - Handles updates and lifecycle
 
-### Svelte Adapter (`@grafana-renderer/svelte`)
+### Svelte Adapter (`@leafcuttr/libgraphit-svelte`)
 
 The Svelte adapter provides:
 

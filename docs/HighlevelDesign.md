@@ -118,7 +118,7 @@ class GrafanaRenderer {
 ```svelte
 <!-- As a component -->
 <script>
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import dashboard from './my-dashboard.json';
 
   const panel = dashboard.panels[0];

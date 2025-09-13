@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GrafanaPanel } from '@grafana-renderer/svelte';
+  import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
   import { cpuUsagePanel, simplePanel } from '$lib/panels';
   import { prometheusUrl } from '$lib/stores';
 

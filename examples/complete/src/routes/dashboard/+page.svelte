@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GrafanaDashboard } from '@grafana-renderer/svelte';
+  import { GrafanaDashboard } from '@leafcuttr/libgraphit-svelte';
   import { prometheusUrl, theme, refreshInterval } from '$lib/stores';
   import sampleDashboard from '../../../../sample-dashboard.json';
 </script>
@@ -91,7 +91,7 @@
     <h3>Usage Example</h3>
     <div class="code">
       <pre>{`<script>
-  import { GrafanaDashboard } from '@grafana-renderer/svelte';
+  import { GrafanaDashboard } from '@leafcuttr/libgraphit-svelte';
   import dashboardJson from './my-dashboard.json';
 </script>
 

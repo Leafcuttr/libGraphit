@@ -1,5 +1,5 @@
 {
-  "name": "@grafana-renderer/svelte",
+  "name": "@leafcuttr/libgraphit-svelte",
   "version": "0.1.6",
   "type": "module",
   "description": "Svelte adapter for Grafana Chart.js Renderer",
@@ -21,7 +21,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@grafana-renderer/core": "0.0.5"
+    "@leafcuttr/libgraphit-core": "0.0.5"
   },
   "peerDependencies": {
     "chart.js": "^4.5.0",

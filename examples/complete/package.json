@@ -1,5 +1,5 @@
 {
-  "name": "libgraphit-sveltekit-example",
+  "name": "@leafcuttr/libgraphit-sveltekit-example",
   "version": "1.0.0",
   "description": "Complete SvelteKit example for libGraphit - Grafana Chart.js Renderer",
   "private": true,
@@ -28,8 +28,8 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "@grafana-renderer/core": "file:../../packages/core",
-    "@grafana-renderer/svelte": "file:../../packages/svelte",
+    "@leafcuttr/libgraphit-core": "file:../../packages/core",
+    "@leafcuttr/libgraphit-svelte": "file:../../packages/svelte",
     "chart.js": "^4.5.0",
     "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-plugin-datasource-prometheus": "^2.3.2",

@@ -1,5 +1,5 @@
 {
-  "name": "libgraphit",
+  "name": "@leafcuttr/libgraphit",
   "version": "0.1.0",
   "description": "Grafana Chart.js Renderer - A lightweight, embeddable, and framework-agnostic library to render Grafana panels using Chart.js",
   "private": true,

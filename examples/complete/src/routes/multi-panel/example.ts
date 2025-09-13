@@ -1,6 +1,6 @@
 
 export const multiPanelExample = `// Store configuration
-import { GrafanaPanel } from '@grafana-renderer/svelte';
+import { GrafanaPanel } from '@leafcuttr/libgraphit-svelte';
 import { writable } from 'svelte/store';
 
 // Shared configuration stores
