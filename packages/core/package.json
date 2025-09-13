@@ -16,17 +16,17 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "chart.js": "^4.0.0",
-    "chartjs-plugin-datasource-prometheus": "^2.3.2",
+    "chart.js": "^4.5.0",
     "chartjs-adapter-date-fns": "^3.0.0",
-    "date-fns": "^3.0.0"
+    "chartjs-plugin-datasource-prometheus": "^2.4.1",
+    "date-fns": "^3.6.0"
   },
   "devDependencies": {
-    "@types/jest": "^29.0.0",
-    "jest": "^29.0.0",
-    "rollup": "^4.0.0",
     "@rollup/plugin-typescript": "^12.1.4",
-    "ts-jest": "^29.0.0"
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "rollup": "^4.50.1",
+    "ts-jest": "^29.4.1"
   },
   "keywords": [
     "grafana",
