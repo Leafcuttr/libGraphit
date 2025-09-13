@@ -16,7 +16,6 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: packages/core
-          access: "public"
       - uses: JS-DevTools/npm-publish@v3
         with:
           token: ${{ secrets.NPM_TOKEN }}
