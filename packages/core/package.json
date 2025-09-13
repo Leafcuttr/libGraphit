@@ -35,5 +35,8 @@
     "core",
     "framework-agnostic"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MIT"
 }
