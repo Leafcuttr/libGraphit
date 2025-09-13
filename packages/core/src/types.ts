@@ -58,6 +58,8 @@ export type CustomQueryHandler = (start: Date, end: Date, step: number) => Promi
 
 // Chart.js configuration with Prometheus plugin
 export interface PrometheusChartConfig extends ChartConfiguration {
+  backgroundColor?: string;
+  color?: string;
   options: ChartConfiguration['options'] & {
     plugins?: {
       'datasource-prometheus'?: {

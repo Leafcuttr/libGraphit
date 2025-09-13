@@ -334,6 +334,8 @@ export class GrafanaRenderer {
     const colors = themeColors[theme];
 
     if (config.options) {
+      config.backgroundColor = colors.backgroundColor;
+      config.color = colors.textColor;
       config.options.backgroundColor = colors.backgroundColor;
       
       if (config.options.plugins?.title) {
