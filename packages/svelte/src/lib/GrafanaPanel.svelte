@@ -93,7 +93,7 @@
 </script>
 
 <div 
-  class="grafana-panel {className}"
+  class="grafana-panel {className}" class:darkTheme={theme === 'dark'}
   style="width: {width}; height: {height};"
 >
   {#if loading}
@@ -172,8 +172,7 @@
     display: block;
   }
 
-  /* Dark theme support */
-  :global(.dark) .grafana-panel {
+  .darkTheme.grafana-panel {
     --bg-color: #1f1f1f;
     --border-color: #404040;
     --text-color: #ffffff;
