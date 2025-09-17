@@ -1,0 +1,62 @@
+.grafana-panel {
+  position: relative;
+  background: var(--bg-color, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-color, #666);
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-color, #e0e0e0);
+  border-top: 3px solid var(--accent-color, #007bff);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  padding: 2rem;
+  text-align: center;
+  color: var(--error-color, #dc3545);
+}
+
+.error h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+}
+
+.error p {
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+}
+
+.error small {
+  color: var(--text-muted, #6c757d);
+}
+
+.chart-canvas {
+  display: block;
+}
+
+.darkTheme.grafana-panel {
+  --bg-color: #1f1f1f;
+  --border-color: #404040;
+  --text-color: #ffffff;
+  --text-muted: #adb5bd;
+}

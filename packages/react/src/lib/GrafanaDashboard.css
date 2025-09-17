@@ -1,0 +1,17 @@
+.grafana-dashboard {
+  background: var(--bg-color, #f8f9fa);
+  min-height: 400px;
+}
+
+.dashboard-panel {
+  background: var(--panel-bg-color, #ffffff);
+  border: 1px solid var(--border-color, #e0e0e0);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dark .grafana-dashboard {
+  --bg-color: #1a1a1a;
+  --panel-bg-color: #2d2d2d;
+  --border-color: #404040;
+}
