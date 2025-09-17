@@ -4,7 +4,7 @@ High-Level Design: Grafana to Chart.js Renderer
 
 This document outlines the high-level design for a TypeScript library that parses a Grafana dashboard JSON file and renders its panels using Chart.js and the chartjs-plugin-datasource-prometheus plugin.
 
-The primary goal is to create a framework-agnostic core engine with a pluggable architecture for UI framework integration. The initial release will target SvelteKit, with the design allowing for future expansion to frameworks like React, Vue, and Angular.
+The primary goal is to create a framework-agnostic core engine with a pluggable architecture for UI framework integration. The initial release targets SvelteKit and React, with the design allowing for future expansion to frameworks like Vue and Angular.
 
 2. Goals & Objectives
 
@@ -24,10 +24,10 @@ The system will be designed with a layered architecture to ensure separation of 
 
 ```
 +------------------------------------------------------+
-|             Application (e.g., SvelteKit)            |
+|          Application (e.g., SvelteKit, React)        |
 +------------------------------------------------------+
 |                 Framework Adapter                    |
-|                (e.g., Svelte Action/Component)       |
+|           (e.g., Svelte or React Component)          |
 +------------------------------------------------------+
 |                  Core Rendering Engine               |
 |                                                      |
@@ -58,13 +58,15 @@ This is the heart of the library, published as a standalone package. It will hav
 
 These are thin, separate packages that make the core engine easy to use within a specific UI framework.
 
-*    SvelteKit Adapter (Initial Target): This will likely be implemented as a Svelte Action (use:grafanaDashboard) or a component (<GrafanaPanel>). It will handle creating the <canvas> element, passing it to the core engine, and cleaning up the chart instance when the component is destroyed.
+*    SvelteKit Adapter: This is implemented as a Svelte component (`<GrafanaPanel>`). It handles creating the `<canvas>` element, passing it to the core engine, and cleaning up the chart instance when the component is destroyed.
+
+*    React Adapter: This is implemented as a React component (`<GrafanaPanel>`). It also handles the `<canvas>` element creation and lifecycle, integrating with React's component lifecycle.
 
 4. Data Flow
 
-*    Initialization: The user's application (e.g., a SvelteKit page) imports the SvelteKit adapter.
+*    Initialization: The user's application (e.g., a SvelteKit or React page) imports the appropriate framework adapter.
 
-*    Component Mount: The Svelte component mounts. It receives the Grafana JSON as a prop.
+*    Component Mount: The Svelte or React component mounts. It receives the Grafana JSON as a prop.
 
 *    Invocation: The adapter creates a <canvas> element, instantiates a GrafanaRenderer with the canvas and options, then calls the render method with the panel JSON.
 
@@ -133,6 +135,28 @@ class GrafanaRenderer {
 </div>
 ```
 
+### React Adapter API
+
+```tsx
+// As a component
+import { GrafanaPanel } from '@leafcuttr/libgraphit-react';
+import dashboard from './my-dashboard.json';
+
+const panel = dashboard.panels[0];
+const options = {
+  prometheusUrl: 'http://localhost:9090',
+  theme: 'light'
+};
+
+function MyChart() {
+  return (
+    <div className="chart-container">
+      <GrafanaPanel panelJson={panel} {...options} />
+    </div>
+  );
+}
+```
+
 6. Constraints & Assumptions (v1.0)
 
 *    Single Datasource: The entire dashboard is assumed to use a single, globally defined Prometheus datasource. The URL for this will be passed during initialization.
@@ -149,7 +173,7 @@ class GrafanaRenderer {
 
 *    Support for Grafana template variables.
 
-*    Adapters for React, Vue, and Angular.
+*    Adapters for Vue and Angular.
 
 *    Interactive features (e.g., legend toggling, cross-hair synchronization).
 
