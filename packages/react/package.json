@@ -1,0 +1,49 @@
+{
+  "name": "@leafcuttr/libgraphit-react",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "React adapter for Grafana Chart.js Renderer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "dev": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@leafcuttr/libgraphit-core": "0.0.5"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "chart.js": "^4.5.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-datasource-prometheus": "^2.4.1",
+    "date-fns": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "rollup": "^4.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "rollup-plugin-postcss": "^4.0.2"
+  },
+  "keywords": [
+    "react",
+    "grafana",
+    "chart.js",
+    "prometheus",
+    "component"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT"
+}
